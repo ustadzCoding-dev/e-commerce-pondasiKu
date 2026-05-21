@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Tracking | BuildBase</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#d5e3fd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1e",
+                        "primary-container": "#f97316",
+                        "on-secondary-container": "#57657b",
+                        "on-primary-container": "#582200",
+                        "outline-variant": "#e0c0b1",
+                        "surface-container-high": "#e6e8ea",
+                        "on-primary-fixed": "#341100",
+                        "on-primary-fixed-variant": "#783200",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "surface-bright": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "tertiary-fixed": "#dae2fd",
+                        "tertiary-container": "#929ab2",
+                        "on-surface-variant": "#584237",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "outline": "#8c7164",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#ffdbca",
+                        "secondary-container": "#d5e3fd",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#565e74",
+                        "secondary": "#515f74",
+                        "inverse-primary": "#ffb690",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed": "#131b2e",
+                        "surface-variant": "#e0e3e5",
+                        "primary": "#9d4300",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-container": "#2a3246",
+                        "surface-tint": "#9d4300",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "tertiary-fixed-dim": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "gutter": "24px",
+                        "2xl": "48px",
+                        "margin-mobile": "16px",
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "14px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-dot {
+            animation: pulse-orange 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-orange {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.2); }
+        }
+        .map-container {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="flex justify-between items-center w-full px-margin-desktop py-4 bg-surface border-b border-outline-variant z-50">
+<div class="font-headline-md text-headline-md font-bold text-primary">BuildBase</div>
+<nav class="hidden md:flex gap-xl">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Cement</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Tools</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Paints</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Plumbing</a>
+</nav>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">shopping_cart</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">account_circle</span>
+<button class="bg-primary text-on-primary px-6 py-2 rounded font-bold hover:opacity-90 transition-opacity">Sign In</button>
+</div>
+</header>
+<main class="flex-grow flex flex-col md:flex-row h-[calc(100vh-72px)] overflow-hidden">
+<!-- Tracking Sidebar -->
+<aside class="w-full md:w-[400px] bg-surface-container-low border-r border-outline-variant flex flex-col z-10 shadow-lg overflow-y-auto">
+<div class="p-lg border-b border-outline-variant bg-surface">
+<div class="flex items-center gap-sm mb-xs">
+<span class="text-label-sm font-label-sm text-primary uppercase tracking-wider">Tracking ID</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-md">#BB-892340-TR</h1>
+<div class="flex items-center gap-md p-md bg-secondary-container rounded-lg">
+<div class="w-12 h-12 bg-white rounded flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-secondary-container">ESTIMATED ARRIVAL</p>
+<p class="font-headline-md text-headline-md text-on-secondary-container">10:45 AM Today</p>
+</div>
+</div>
+</div>
+<!-- Milestones Section -->
+<div class="p-lg space-y-gutter">
+<div class="relative">
+<!-- Vertical Line Connector -->
+<div class="absolute left-[11px] top-4 bottom-0 w-0.5 bg-outline-variant"></div>
+<!-- Milestone 1: Done -->
+<div class="relative flex gap-md mb-gutter">
+<div class="z-10 bg-primary w-6 h-6 rounded-full flex items-center justify-center border-4 border-white">
+<span class="material-symbols-outlined text-[12px] text-white font-bold">check</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Material Loaded</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">08:15 AM - Distribution Center North</p>
+</div>
+</div>
+<!-- Milestone 2: Active -->
+<div class="relative flex gap-md mb-gutter">
+<div class="z-10 bg-white w-6 h-6 rounded-full flex items-center justify-center border-4 border-primary active-dot">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary">Truck En Route</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">In transit - 4.2 miles from site</p>
+</div>
+</div>
+<!-- Milestone 3: Pending -->
+<div class="relative flex gap-md">
+<div class="z-10 bg-surface-container-high w-6 h-6 rounded-full flex items-center justify-center border-4 border-white">
+</div>
+<div class="opacity-50">
+<h3 class="font-label-md text-label-md text-on-surface">Arrived at Site</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Scheduled arrival - Site B (Logistics Hub)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Driver Card -->
+<div class="mt-auto p-lg bg-surface border-t border-outline-variant">
+<div class="flex items-center gap-md">
+<img alt="Driver Portrait" class="w-14 h-14 rounded-full object-cover border-2 border-outline-variant" data-alt="A professional close-up portrait of a veteran male construction logistics driver wearing a high-visibility orange vest and a branded BuildBase baseball cap. He has a friendly, reliable expression. The background is slightly blurred showing a heavy industrial warehouse environment with cool, professional lighting. The aesthetic is clean, sharp, and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGWNuC6OGlX3mHO58ai4VQ3-5sizKnZarFxxnizQfO17RzX23rlf4WenoWH0oI7zXp7z-wPauYHnF8Vpaa78b3-32PrcdAQQDlcf8g56F5Hc14nHS9lQDkk1pcMmXsGMXb3me6DqYw4YpgoG56Vi46zPTAujKVItYxIOo4_QX-vu4ZRwr3H8NMZTj_uVIymeWwFIGhuZN8GhJEkyqCaOpCTtgqk-PqEF7mmW2wN5iQUuyA_oeigKV6ohHMFZR9K3FLxgqF9qP6tUI"/>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-on-surface-variant">YOUR DRIVER</p>
+<p class="font-label-md text-label-md text-on-surface">Marcus Thorne</p>
+<div class="flex items-center text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm ml-1">4.9 Rating</span>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="w-10 h-10 rounded bg-secondary text-on-secondary flex items-center justify-center hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="w-10 h-10 rounded bg-primary text-on-primary flex items-center justify-center hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">chat</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Map Canvas -->
+<section class="flex-grow relative map-container bg-surface-container overflow-hidden">
+<!-- Simulated Map Visualization -->
+<div class="absolute inset-0 flex items-center justify-center">
+<!-- Map Background Image -->
+<img alt="Real-time delivery map" class="w-full h-full object-cover opacity-60 grayscale" data-alt="A high-angle, detailed satellite-style map of an industrial metropolitan area with sharp grid layouts and construction zones. Overlaid are digital, glowing route lines in deep orange and cyan. The visual style is professional, data-centric, and high-contrast, reminiscent of a high-end logistics dashboard. Lighting is even and daylight-clear, emphasizing the precision of the urban infrastructure." data-location="Chicago" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCHDwzuX5rFisUKZ96V4wcnbb2l50cpZr_oJ11EvmzJwyy05qUQ56ywKAC36P6feHQ6Zx0998pSY7vlNOjpHd2YjvqqjLgF2h97wklyQjuiVqATJew_TBFEydywSAW0RmvTzWVEGcRDVoN4ung5EZlK12Fhuzm4LHa_la4RxwIqSGxmtBdDBBLov14UT0MGHWvM1Xi8phgIe5EUAZ2F8DSe4VbdXjmTZ_Onb6AMz9yIvBHHrwaaZs-3fAdRPKFq0gc1WWyVfK2j50"/>
+<!-- SVG Path Route Overlay -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" viewbox="0 0 1000 1000">
+<path d="M 200 800 Q 400 700 500 500 T 800 200" fill="none" opacity="0.4" stroke="#9d4300" stroke-dasharray="12, 8" stroke-width="6"></path>
+<circle cx="200" cy="800" fill="#515f74" r="8"></circle>
+<circle cx="800" cy="200" fill="#9d4300" r="10"></circle>
+</svg>
+<!-- Truck Marker -->
+<div class="absolute transition-all duration-1000 ease-in-out" id="truck-marker" style="left: 45%; top: 48%;">
+<div class="relative">
+<div class="absolute -top-12 -left-16 bg-white px-3 py-1 rounded shadow-lg border border-outline-variant whitespace-nowrap">
+<p class="font-label-sm text-label-sm text-primary">In Transit - 45mph</p>
+<div class="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-r border-b border-outline-variant"></div>
+</div>
+<div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center shadow-xl border-2 border-white transform hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+</div>
+</div>
+<!-- Destination Marker -->
+<div class="absolute" style="left: 80%; top: 20%;">
+<div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="mt-2 bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded text-[10px] font-bold uppercase tracking-tighter">Site B</div>
+</div>
+</div>
+<!-- Floating Controls -->
+<div class="absolute bottom-lg right-lg flex flex-col gap-sm">
+<button class="bg-surface w-12 h-12 rounded shadow-md flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="bg-surface w-12 h-12 rounded shadow-md flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="bg-surface w-12 h-12 rounded shadow-md flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+<!-- Material Details Bubble -->
+<div class="absolute top-lg left-lg bg-surface/90 backdrop-blur-md p-md rounded-lg border border-outline-variant shadow-xl hidden md:block max-w-xs">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2">MANIFEST CONTENT</p>
+<div class="space-y-sm">
+<div class="flex justify-between items-center gap-xl">
+<span class="font-body-sm text-body-sm">Portland Cement (40kg)</span>
+<span class="font-label-md text-label-md">x240</span>
+</div>
+<div class="flex justify-between items-center gap-xl">
+<span class="font-body-sm text-body-sm">Industrial Reinforcement Bars</span>
+<span class="font-label-md text-label-md">x50</span>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant flex justify-between">
+<span class="font-label-sm text-label-sm">Total Weight:</span>
+<span class="font-label-md text-label-md text-primary">11.2 Tons</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center bg-secondary text-on-secondary">
+<div class="mb-gutter md:mb-0">
+<div class="font-headline-md text-headline-md font-bold text-on-secondary mb-2">BuildBase</div>
+<p class="font-body-sm text-body-sm opacity-80">© 2024 BuildBase Industrial Materials. All rights reserved. Heavy Material Certified Shipping.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-xl">
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Shipping Policy</a>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Bulk Orders</a>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Technical Specs</a>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Returns</a>
+</div>
+</footer>
+<script>
+        // Subtle map movement micro-interaction
+        const marker = document.getElementById('truck-marker');
+        let moveX = 45;
+        let moveY = 48;
+        
+        setInterval(() => {
+            // Random jitter to simulate traffic movement
+            const jitterX = (Math.random() - 0.5) * 0.5;
+            const jitterY = (Math.random() - 0.5) * 0.5;
+            
+            // Bias movement towards the destination (80, 20)
+            moveX += (80 - moveX) * 0.005 + jitterX;
+            moveY += (20 - moveY) * 0.005 + jitterY;
+            
+            marker.style.left = `${moveX}%`;
+            marker.style.top = `${moveY}%`;
+        }, 3000);
+    </script>
+</body></html>

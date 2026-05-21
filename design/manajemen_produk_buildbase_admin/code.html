@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BuildBase Admin | Inventory Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        /* Zebra striping for tables */
+        .zebra-row:nth-child(even) {
+            background-color: #f2f4f6;
+        }
+        .zebra-row:hover {
+            background-color: #FFF7ED;
+            transition: background-color 0.2s ease;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#d5e3fd",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed-variant": "#3a485c",
+                      "error": "#ba1a1a",
+                      "on-background": "#191c1e",
+                      "primary-container": "#f97316",
+                      "on-secondary-container": "#57657b",
+                      "on-primary-container": "#582200",
+                      "outline-variant": "#e0c0b1",
+                      "surface-container-high": "#e6e8ea",
+                      "on-primary-fixed": "#341100",
+                      "on-primary-fixed-variant": "#783200",
+                      "on-surface": "#191c1e",
+                      "on-tertiary-fixed-variant": "#3f465c",
+                      "surface-bright": "#f7f9fb",
+                      "surface-dim": "#d8dadc",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#0d1c2f",
+                      "surface": "#f7f9fb",
+                      "background": "#f7f9fb",
+                      "tertiary-fixed": "#dae2fd",
+                      "tertiary-container": "#929ab2",
+                      "on-surface-variant": "#584237",
+                      "secondary-fixed-dim": "#b9c7e0",
+                      "outline": "#8c7164",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#eceef0",
+                      "primary-fixed-dim": "#ffb690",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#ffdbca",
+                      "secondary-container": "#d5e3fd",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#565e74",
+                      "secondary": "#515f74",
+                      "inverse-primary": "#ffb690",
+                      "inverse-surface": "#2d3133",
+                      "on-tertiary-fixed": "#131b2e",
+                      "surface-variant": "#e0e3e5",
+                      "primary": "#9d4300",
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-tertiary-container": "#2a3246",
+                      "surface-tint": "#9d4300",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-container-low": "#f2f4f6",
+                      "tertiary-fixed-dim": "#bec6e0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "md": "16px",
+                      "gutter": "24px",
+                      "2xl": "48px",
+                      "margin-mobile": "16px",
+                      "3xl": "64px",
+                      "xl": "32px",
+                      "sm": "8px",
+                      "margin-desktop": "48px"
+              },
+              "fontFamily": {
+                      "body-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "14px", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- SideNavBar (Desktop Anchor) -->
+<aside class="hidden md:flex flex-col h-screen fixed left-0 top-0 py-6 px-4 bg-surface-container-low border-r border-outline-variant w-64 z-50">
+<div class="mb-10 px-2">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Admin Portal</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">BuildBase Logistics</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Active Tab: Products -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg active:scale-95 transition-transform font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                Products
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                Orders
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Customers
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-2">
+<button class="bg-primary-container text-on-primary-container font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 mb-4 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                New Product
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Log Out
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 p-margin-mobile md:p-margin-desktop">
+<!-- Top row: Identity & Search -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Product Inventory</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage and monitor construction material stock levels across all sites.</p>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<div class="relative flex-1 md:w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 border border-outline-variant bg-surface rounded-lg focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none font-body-sm text-body-sm" placeholder="Search SKU or material..." type="text"/>
+</div>
+<button class="flex items-center justify-center p-2 border border-outline-variant rounded-lg bg-surface text-on-surface hover:bg-surface-container-high">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</header>
+<!-- Inventory Metrics Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-10">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Total SKUs</p>
+<p class="font-headline-lg text-headline-lg text-on-surface">1,482</p>
+<div class="flex items-center gap-1 text-primary mt-2">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span class="font-label-sm text-label-sm">+12 this month</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Low Stock Alerts</p>
+<p class="font-headline-lg text-headline-lg text-error">24</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-2">Requires urgent restock</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Total Inventory Value</p>
+<p class="font-headline-lg text-headline-lg text-on-surface">$2.4M</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-2">Current market valuation</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg bg-secondary text-on-secondary">
+<p class="font-label-sm text-label-sm opacity-80 mb-1">Active Procurement</p>
+<p class="font-headline-lg text-headline-lg">18</p>
+<p class="font-label-sm text-label-sm opacity-80 mt-2">Orders in transit</p>
+</div>
+</section>
+<!-- Product Management Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+<div class="bg-surface-container-low px-lg py-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-label-md text-label-md text-on-surface">Inventory List</h3>
+<div class="flex gap-2">
+<button class="bg-secondary px-4 py-2 text-on-secondary font-label-md text-label-md rounded flex items-center gap-2 hover:opacity-90">
+<span class="material-symbols-outlined" data-icon="file_download">file_download</span> Export CSV
+                    </button>
+<button class="bg-primary-container px-4 py-2 text-on-primary-container font-label-md text-label-md rounded flex items-center gap-2 hover:opacity-90">
+<span class="material-symbols-outlined" data-icon="add">add</span> Add Material
+                    </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">SKU</th>
+<th class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Material Category</th>
+<th class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Stock Level</th>
+<th class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Bulk Price</th>
+<th class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="zebra-row">
+<td class="px-lg py-4 font-label-md text-label-md text-on-surface">CMNT-R42-OP</td>
+<td class="px-lg py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="A close-up photograph of professional grade grey portland cement powder in industrial packaging. The lighting is harsh and direct, emphasizing the texture of the material within a clean, warehouse setting. The overall aesthetic is industrial and high-performance, consistent with construction material logistics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIL17fdZVjUIq3yjD4lQ32YOLlb0ADzZe8hks6bR7rxT0m812Bmhr5QbK_rrRXzQzcuYDf4YaIEoFqu9a1O9boGiD9XYlPKOe6ccKNl_xaEO_uWEwBWMbC3PHlT3isWvDuduhfr-SEz3kSsWqdedZRLX0wfjdUsRCkq69buSyYwW59zEKAPV086PpiOrnbNlevB9r-iCsd6jgTSIu0Ujj1Jyyq6rW9TF8gBWkqDEnwJMlobvrmEd-P4ohk_dgUwkiZMEz85m0b5XI"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Portland Cement</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">High-Strength Grade 42.5</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">420 kg</span>
+<span class="inline-flex items-center px-2 py-0.5 mt-1 rounded text-[10px] font-bold bg-green-100 text-green-700 w-fit uppercase">In Stock</span>
+</div>
+</td>
+<td class="px-lg py-4 font-body-md text-body-md text-on-surface">$12.50 / bag</td>
+<td class="px-lg py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="ml-4 text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="zebra-row">
+<td class="px-lg py-4 font-label-md text-label-md text-on-surface">REBAR-12MM-HD</td>
+<td class="px-lg py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="Stacks of heavy-duty 12mm steel rebar rods lying in an organized construction yard. The steel has a slight industrial sheen and rusted protective layer. The image is shot from a low angle to emphasize strength and bulk, with high contrast lighting and a cool, metallic color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg4B5B1ViaCFOZ7ytJPCY1fseK6OPKomby4l6olqHR0QueX6VX8odkgkuQlXdHHD4mLqaYZR4SeYS8uC5BKrkzKMOtWUjw5oQ3mTzIfduk_YvfUeckaTcsS5HUR7hcoZx2JpPyfRGc5ZMuHPEJvrrgs57dEHsN5sn6PPYo0pTmi-yyR7MsBWX9RzUYj8kWXJybaQmvhGNhAsiLJVH8Pj89htXbXnC7ofd0q4EwX0ndM-NJewaPEEnjgIPvkUUlv7xvPk3H9CDhytQ"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Steel Rebar</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">12mm Reinforced Rods</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">1,250 units</span>
+<span class="inline-flex items-center px-2 py-0.5 mt-1 rounded text-[10px] font-bold bg-green-100 text-green-700 w-fit uppercase">In Stock</span>
+</div>
+</td>
+<td class="px-lg py-4 font-body-md text-body-md text-on-surface">$840.00 / ton</td>
+<td class="px-lg py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="ml-4 text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="zebra-row">
+<td class="px-lg py-4 font-label-md text-label-md text-on-surface">CONC-M3-RMIX</td>
+<td class="px-lg py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="A professional heavy-duty concrete mixer truck at a modern construction site. The focus is on the rotating drum and the texture of fresh wet concrete. The atmosphere is functional and rugged, captured in bright daylight with high detail and a professional architectural photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWVGWaZdDWHbfPLLVel-9nc13VwKLm-FaIuE2cdqVLv25cNbJEO2yIXJVJsU-gc-QNPinMQwTQGpRSnB_NCQzTuCLuZJUxl24Z6Kkr1VyCZh71-5OstGTmB1PcTeb4f1Rz5DDIkah7GBS-g8D1VaVpt3cKz82bovh5S3YSCQkXSA_djoNEbCCv193stTRYWdPK4oyZTbN_D-NQuoG2wSEGdVrZBUKk8wOeURBOiVSewnPNro_fSfRaoB1SWHYF6lKrcdHTQq5qUa0"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Ready-Mix Concrete</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">C30/37 structural grade</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">12 m³</span>
+<span class="inline-flex items-center px-2 py-0.5 mt-1 rounded text-[10px] font-bold bg-error-container text-on-error-container w-fit uppercase">Low Stock</span>
+</div>
+</td>
+<td class="px-lg py-4 font-body-md text-body-md text-on-surface">$145.00 / m³</td>
+<td class="px-lg py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="ml-4 text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="zebra-row">
+<td class="px-lg py-4 font-label-md text-label-md text-on-surface">TIMB-C24-4X2</td>
+<td class="px-lg py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="Kiln-dried C24 structural timber planks neatly stacked in a professional lumber yard. The wood grain is sharp and visible. The lighting is bright and airy, reflecting a well-organized supply chain. The aesthetic is clean and industrial with natural warm tones against a neutral slate background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDBRNbykJRat8VYQccJ7ZK0q6bhdIZ_PrDTp4nlkM5TbaGaxZCCkBjaB9hCL1h1ckkApQIK5BpmJ9pPG6hsf4YZ0WgUpP95W99z0TrwJfyxtwxeg2h2l5ooO5m0ApCe2i1NGL-vmqmnolWC4cUnSQcktv-SnnlP_sA7EPXb3OMSbwu7psSI2S_99NyD6JOujgHVT9gU4j1aNo4_MVoGJAGPHY_CB9qgFvCDRaW8RlTS7rchSBsIbmBea06dIddHetIFnKW5voZNjo"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Structural Timber</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">C24 Graded 47x100mm</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">450 units</span>
+<span class="inline-flex items-center px-2 py-0.5 mt-1 rounded text-[10px] font-bold bg-green-100 text-green-700 w-fit uppercase">In Stock</span>
+</div>
+</td>
+<td class="px-lg py-4 font-body-md text-body-md text-on-surface">$5.80 / linear m</td>
+<td class="px-lg py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="ml-4 text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-surface-container-low px-lg py-md border-t border-outline-variant flex justify-between items-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 4 of 1,482 entries</p>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded bg-surface hover:bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center border border-primary-container rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded bg-surface hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded bg-surface hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm">3</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded bg-surface hover:bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="md:ml-64 w-full md:w-[calc(100%-16rem)] py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center bg-secondary text-on-secondary border-t border-outline">
+<div class="mb-6 md:mb-0 text-center md:text-left">
+<h4 class="font-headline-md text-headline-md font-bold text-on-secondary mb-2">BuildBase</h4>
+<p class="font-body-sm text-body-sm opacity-80 max-w-sm">
+                © 2024 BuildBase Industrial Materials. All rights reserved. Heavy Material Certified Shipping.
+            </p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Shipping Policy</a>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Bulk Orders</a>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Technical Specs</a>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Returns</a>
+</div>
+</footer>
+<!-- Simple Micro-interactions Script -->
+<script>
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.classList.add('opacity-80');
+            });
+            el.addEventListener('mouseup', () => {
+                el.classList.remove('opacity-80');
+            });
+            el.addEventListener('mouseleave', () => {
+                el.classList.remove('opacity-80');
+            });
+        });
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.01]');
+            searchInput.parentElement.style.transition = 'transform 0.2s ease';
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.01]');
+        });
+    </script>
+</body></html>

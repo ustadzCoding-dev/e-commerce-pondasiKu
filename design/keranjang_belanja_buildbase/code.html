@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BuildBase | Shopping Cart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#d5e3fd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1e",
+                        "primary-container": "#f97316",
+                        "on-secondary-container": "#57657b",
+                        "on-primary-container": "#582200",
+                        "outline-variant": "#e0c0b1",
+                        "surface-container-high": "#e6e8ea",
+                        "on-primary-fixed": "#341100",
+                        "on-primary-fixed-variant": "#783200",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "surface-bright": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "tertiary-fixed": "#dae2fd",
+                        "tertiary-container": "#929ab2",
+                        "on-surface-variant": "#584237",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "outline": "#8c7164",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#ffdbca",
+                        "secondary-container": "#d5e3fd",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#565e74",
+                        "secondary": "#515f74",
+                        "inverse-primary": "#ffb690",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed": "#131b2e",
+                        "surface-variant": "#e0e3e5",
+                        "primary": "#9d4300",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-container": "#2a3246",
+                        "surface-tint": "#9d4300",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "tertiary-fixed-dim": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "gutter": "24px",
+                        "2xl": "48px",
+                        "margin-mobile": "16px",
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "14px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-background border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-margin-desktop py-4 sticky top-0 z-50">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">BuildBase</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Cement</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Tools</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Paints</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Plumbing</a>
+</nav>
+<div class="flex items-center gap-6">
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-primary" data-icon="shopping_cart">shopping_cart</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="account_circle">account_circle</span>
+</div>
+<button class="bg-primary text-on-primary font-bold px-6 py-2 rounded-lg hover:opacity-90 transition-opacity">Sign In</button>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<div class="flex flex-col gap-sm mb-12">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Your Cargo Manifest</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Review items and logistics requirements for Project #BB-4902.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Items Section -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Cart Item 1: Cement -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 flex flex-col md:flex-row gap-6 relative overflow-hidden">
+<div class="w-full md:w-32 h-32 bg-surface-container flex-shrink-0 flex items-center justify-center border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A heavy-duty multi-wall paper bag of industrial-grade Portland cement resting on a weathered wooden construction pallet. The lighting is harsh and direct, emphasizing the texture of the thick paper and the dusty environment of a professional job site. The color palette is dominated by muted grays, earthy ochre, and deep slate tones, reflecting a rugged industrial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8DrAYs8_mwKCMO0kdjFi64gO98q_hEaizI49kXGcRpjQaJ7LZhdItHL9cyCkwTn-qeYHS-5eItNtAhzQfCGD-tgC0ezmokn0977aEPh9A5FjBe1NiFjbf279j5MzLvCjuX3VBPCE33AeSewswfzrCPtqG1KYc4K0_vg4XWXExVbEx-fMTNRmvCmtbb6rcw_SDGFrwjQE2Us9dQ7RKsdh6ODEbJv0rz_kgFLanAzXHn5TG55NGcipCSLyHwgBmDvJ87S-XV3Ohbmg"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<div class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-sm font-label-sm text-label-sm mb-2 inline-block">HEAVY MATERIAL</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">High-Performance Portland Cement</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">42.5N Grade. Multi-wall paper bag with moisture barrier.</p>
+</div>
+<div class="text-right">
+<p class="font-headline-md text-headline-md text-primary">$18.50 <span class="font-body-sm text-body-sm text-on-surface-variant">/ unit</span></p>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">SKU: CEM-425-20</p>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between border-t border-outline-variant pt-4 mt-2">
+<div class="flex items-center gap-4">
+<div class="flex items-center border border-outline-variant rounded-sm overflow-hidden bg-white">
+<button class="px-3 py-1 hover:bg-surface-container-high transition-colors">-</button>
+<span class="px-6 py-1 font-bold border-x border-outline-variant">20</span>
+<button class="px-3 py-1 hover:bg-surface-container-high transition-colors">+</button>
+</div>
+<button class="text-error font-label-md text-label-md flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span> Remove
+                                </button>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Unit Weight: 25.0 kg</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">Line Weight: 500.0 kg</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cart Item 2: Drills -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 flex flex-col md:flex-row gap-6 relative">
+<div class="w-full md:w-32 h-32 bg-surface-container flex-shrink-0 flex items-center justify-center border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional brushless impact driver drill set in a rugged, hard-shell charcoal carrying case. The tools are bright construction orange with black rubberized grips, arranged precisely in high-density foam inserts. High-contrast lighting highlights the metallic sheen of the drill chucks against a clean, technical background with professional blueprint accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiPwScR4_GgHGc6Qegc3iIZu8Zk__oXaek78K40QQeYo68pjd7z0dXcPpD_6odYU2ZfBMfNR4gU76HAGHOiyzy_hVc6isnEaFiyvCXHqGrrLei1b8vqutzhibZYYPFO0OSdq2IdbEBJ_u7HshmfV8Occ7z6ewN_zT7Z3CAzbmcLWszFE40CmLrxnRI-49M-J-9ZSFMp3JbV8vSorPo0Ai6y8x2yDZaXNoQDWvX5zdQ8WQVKZwwFSYiW1FxctnT2pC4irs2aiYSQsk"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<div class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-sm font-label-sm text-label-sm mb-2 inline-block">PRECISION TOOL</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Industrial Brushless Drill Kit</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">20V Max, 2-Battery Bundle with Hard Carry Case.</p>
+</div>
+<div class="text-right">
+<p class="font-headline-md text-headline-md text-primary">$289.00</p>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">SKU: TLR-B20-SET</p>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between border-t border-outline-variant pt-4 mt-2">
+<div class="flex items-center gap-4">
+<div class="flex items-center border border-outline-variant rounded-sm overflow-hidden bg-white">
+<button class="px-3 py-1 hover:bg-surface-container-high transition-colors">-</button>
+<span class="px-6 py-1 font-bold border-x border-outline-variant">1</span>
+<button class="px-3 py-1 hover:bg-surface-container-high transition-colors">+</button>
+</div>
+<button class="text-error font-label-md text-label-md flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span> Remove
+                                </button>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Unit Weight: 4.8 kg</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">Line Weight: 4.8 kg</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Logistics Calculation Block -->
+<div class="bg-surface-container-low border border-outline p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="local_shipping">local_shipping</span>
+<h2 class="font-headline-md text-headline-md">Logistics Weight Analysis</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter text-center">
+<div class="bg-surface-container-lowest border border-outline-variant p-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Net Payload</p>
+<p class="font-display-lg text-[32px] font-extrabold text-on-surface">504.8 <span class="text-body-sm">kg</span></p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Pallet Count</p>
+<p class="font-display-lg text-[32px] font-extrabold text-on-surface">01 <span class="text-body-sm">Standard</span></p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Class Code</p>
+<p class="font-display-lg text-[32px] font-extrabold text-on-surface">LTL-70</p>
+</div>
+</div>
+<p class="mt-4 font-body-sm text-body-sm text-on-surface-variant italic">
+                        * Note: All weights include packaging and basic pallet weight estimates. Exact weight verified at terminal.
+                    </p>
+</div>
+</div>
+<!-- Summary Section -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container border border-outline-variant p-6 sticky top-28">
+<h2 class="font-headline-md text-headline-md mb-6 pb-4 border-b border-outline-variant">Order Summary</h2>
+<div class="flex flex-col gap-4 mb-6">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Subtotal (21 items)</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">$659.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Heavy Material Surcharge</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">$45.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Estimated Tax (8%)</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">$56.32</span>
+</div>
+</div>
+<div class="flex justify-between items-end mb-8 pt-6 border-t border-outline">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Total</span>
+<span class="font-display-lg text-[32px] font-extrabold text-primary">$760.32</span>
+</div>
+<button class="w-full bg-primary text-on-primary font-bold py-4 mb-4 flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.98]">
+                        PROCEED TO CHECKOUT
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Bulk Quote Option -->
+<div class="bg-secondary-container p-4 border border-secondary text-on-secondary-container">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary pt-1" data-icon="request_quote">request_quote</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold">Need Bulk Shipping?</h4>
+<p class="font-body-sm text-body-sm mb-3">Orders over 1000kg or multiple pallets qualify for customized logistics rates.</p>
+<button class="bg-secondary text-on-secondary px-4 py-2 font-label-md text-label-md rounded-sm hover:opacity-90 transition-opacity">
+                                    REQUEST BULK QUOTE
+                                </button>
+</div>
+</div>
+</div>
+<div class="mt-6 flex flex-col gap-3">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="verified_user">verified_user</span>
+<span class="font-body-sm text-body-sm">Secure Industrial Payment Protocol</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="inventory_2">inventory_2</span>
+<span class="font-body-sm text-body-sm">Certified Heavy Material Shipping</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-secondary dark:bg-inverse-surface text-on-secondary dark:text-inverse-on-surface w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center border-t border-outline dark:border-outline-variant">
+<div class="mb-8 md:mb-0 text-center md:text-left">
+<div class="font-headline-md text-headline-md font-bold text-on-secondary mb-2">BuildBase</div>
+<p class="font-body-sm text-body-sm opacity-80 max-w-sm">© 2024 BuildBase Industrial Materials. All rights reserved. Heavy Material Certified Shipping.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 md:gap-16">
+<div class="flex flex-col gap-2 text-center md:text-left">
+<h4 class="font-label-sm text-label-sm uppercase tracking-widest opacity-60 mb-2">Support</h4>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Shipping Policy</a>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Returns</a>
+</div>
+<div class="flex flex-col gap-2 text-center md:text-left">
+<h4 class="font-label-sm text-label-sm uppercase tracking-widest opacity-60 mb-2">Professional</h4>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Bulk Orders</a>
+<a class="font-body-sm text-body-sm opacity-80 hover:opacity-100 transition-opacity" href="#">Technical Specs</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.98)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+
+        // Quantity logic placeholder
+        const quantityButtons = document.querySelectorAll('button.hover\\:bg-surface-container-high');
+        quantityButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const span = btn.parentElement.querySelector('span');
+                let count = parseInt(span.innerText);
+                if(btn.innerText === '+') count++;
+                else if(count > 1) count--;
+                span.innerText = count;
+                // Add a little glow effect on change
+                span.classList.add('text-primary');
+                setTimeout(() => span.classList.remove('text-primary'), 300);
+            });
+        });
+    </script>
+</body></html>
